@@ -318,26 +318,22 @@ $(document).on('click','#searchDestination',function(e){
 	var date = new Date(date1);
 	var date2 = date.toUTCString()
 	var date3 = formatDate(date2)
-	console.log(date3);
-	//console.log(name + " " +  date);
-	//var loggedId = loggeduser.id;
-	/*if(name == ''){
-		name = "nema";
-	}*/
 	$.ajax({
 		 url: "../api/destinationTimes/searchDestination/"+destination+"/"+date3,
 		 method: "GET",
 		 success: function(data){
 			 $(".DestinationTable").empty();
-			 /*for(i=0;i<data.length;i++){
-				 $("#AVCAdrress").append(`<option id=`+data[i].avioCompany.address+`>`+data[i].avioCompany.address+`</option>`);	 
-				 for(j=0;j<data[i].destDate.length;j++) {
-				 $("#DepartureDate").append(`<option id=`+data[i].destDate[j]+`>`+data[i].destDate[j]+`</option>`);
-				 <td><span class="font-weight-bold">`+data[i].price+`</span></td>
-			*/
 			 for(i=0;i<data.length;i++) {
 				 $(".DestinationTable").append(`<tr>
-				 <td>`+data[i].price+`</td>
+				 <td><span class="font-weight-bold">`+data[i].destinationDate.destination.avioCompany.name+`</span></td>
+				 <td><span class="font-weight-bold">`+data[i].time+`</span></td>
+				 <td><span class="font-weight-bold">`+data[i].arrivalDate+`</span></td>
+				 <td><span class="font-weight-bold">`+data[i].arrivalTime+`</span></td>
+				 <td><span class="font-weight-bold">`+data[i].transferNo+`</span></td>
+				 <td><span class="font-weight-bold">`+data[i].transferPlace+`</span></td>
+				 <td><span class="font-weight-bold">`+data[i].flightLength+`</span></td>
+				 <td><span class="font-weight-bold">`+data[i].price+`</span></td>
+				 <td><button type="button" onclick="reserveDestinations(`+data[i].id+`, `+data[i].destinationDate.id+`,`+data[i].destinationDate.destination.id+` )" class="btn btn-info btn-sm" id="resSeats" data-toggle="modal" data-target="#exampleModalR">Reserve</button></td>
 				 </tr>`);
 			 }
 				 
@@ -347,6 +343,85 @@ $(document).on('click','#searchDestination',function(e){
 		 }
 	});
 });
+
+function reserveDestinations(timeId,dateId,destinationId){
+	var list=[];
+	$.ajax({
+		 url: "../api/destinations/"+destinationId+"/destinationDates/"+dateId+"/destinationTimes/"+timeId+"/seats",
+		 method: "GET",
+		 async : false,
+		 success: function(data){
+			 $("#seatsdiv").empty();
+			 $("#invitediv").empty();
+			 $("#seatsdiv").append(`<div id="seat-map">
+									<div class="front">Flight</div>	
+								</div>
+									<button type="button" id="reserveProjection" class="btn btn-primary">Reserve</button>
+								`);
+			 if(data.length != 0){
+				 
+			 }
+			 
+			var flightrows = data[1].flight.rows;
+			var seatsperrow = data[1].flight.seatsPerRow;
+			
+			for(i=0;i<flightrows;i++){
+				var row ='';
+				for(j=0;j<seatsperrow;j++){
+						row+='a';
+				}
+				list.push(row);
+			}
+			flag = true;
+		 },
+		 error: function(){
+			 alert("Error while getting seats!");
+		 }
+	});
+	
+	var sc = $('#seat-map').seatCharts({
+		map:list,
+		seats: {
+			a: {
+				price   : 99.99,
+				classes : 'front-seat'
+			}
+		
+		},
+		click: function () {
+			if (this.status() == 'available') {
+				//do some stuff, i.e. add to the cart
+				return 'selected';
+			} else if (this.status() == 'selected') {
+				//seat has been vacated
+				return 'available';
+			} else if (this.status() == 'unavailable') {
+				//seat has been already booked
+				return 'unavailable';
+			} else {
+				return this.style();
+			}
+		}
+	});
+	
+	$.ajax({
+		 url: "../api/destinations/"+destinationId+"/destinationDates/"+dateId+"/destinationTimes/"+timeId+"/takenSeats",
+		 method: "GET",
+		 success: function(data){
+			 for(i=0;i<data.length;i++){
+				 var temp = data[i].row+"_"+data[i].seatInRow;
+				 sc.get(temp).status('unavailable');
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting taken seats!");
+		 }
+	});
+	
+	sc.find('c.available').status('unavailable');
+}
+
+
 
 function formatDate(date) {
     var d = new Date(date),
@@ -393,6 +468,12 @@ $(document).on('click','#searchAVC',function(e){
 	});
 });
 
+function reserve(data) {
+	var destinationId = data.destinationDate.destination.name;
+	console.log(destinationId);
+	
+}
+
 function generateDestinations(id){
 	$("#destinations").attr('disabled',false);
 	$("#genDestDates").attr('disabled',false);
@@ -416,37 +497,6 @@ function generateDestinations(id){
 	
 }
 
-/*
-function generateDates(id){
-	$("#destinations").attr('disabled',false);
-	$("#genDestDates").attr('disabled',false);
-	$(this).attr('disabled',true);
-	$.ajax({
-		 url: "../api/destination/"+id+"/destDates",
-		 method: "GET",
-		 success: function(data){
-			 $("#datesdiv").empty();
-			 $("#timesdiv").empty();
-			 $("#seatsdiv").empty();
-			 $("#invitediv").empty();
-			 if(data.length != 0){
-				 $("#datesdiv").append(`<label for="destdates">Date: </label>`);
-				 $("#datesdiv").append(`<select id="destdates">
-                      	</select>
-                      	<button type="button" class="btn btn-info btn-sm" id="genDestinationTimes">Continue</button>`);
-			 }
-			 for(i=0;i<data.length;i++){
-				 $("#destdates").append(`<option id=`+data[i].id+`>`+data[i].destinationDate+`</option>`);
-			 }
-		 },
-		 error: function(){
-			 alert("Error while getting dates!");
-		 }
-	});
-
-	
-}
-*/
 
 $(document).on('click','#genDestDates',function(e){
 	e.preventDefault();

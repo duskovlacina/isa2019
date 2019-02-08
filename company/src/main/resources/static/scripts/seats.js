@@ -1,5 +1,6 @@
 var user = JSON.parse(sessionStorage.getItem('loggedUser'));
 var inv_counter = 0;
+
 $(document).on('click','#genSeats',function(e){
 	//
 	$("#destinationtimes").attr('disabled',true);
