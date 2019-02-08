@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/userpage.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/toastr.min.js"></script>
+    <script src="scripts/jquery.seat-charts.min.js"></script>
+    <script src="scripts/seats.js"></script>
+    
+
+    <title>ISA</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/toastr.css" rel="stylesheet">
+    <link href="stylesheets/jquery.seat-charts.css" rel="stylesheet"></link>
+    <link href="stylesheets/userpage.css" rel="stylesheet">
+
+
+  </head>
+
+<body onload="generateNavbar2(); generateUserInfo(); getAVC(); getReservations(); getFriendRequests(); getFriends(); getVisits(); generateProfile()">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">ISA project</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto navitems">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	<br><br><br><br><br>
+
+
+<div class="container">
+    <div class="row m-y-2">
+        <div class="col-lg-8 push-lg-4">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                </li>
+                 <li class="nav-item">
+                    <a href="" data-target="#avCompany" data-toggle="tab" class="nav-link">AvioCompany</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#reservations" data-toggle="tab" class="nav-link">Reservations</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#friends" data-toggle="tab" class="nav-link">Friends</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#frequests" data-toggle="tab" class="nav-link">Friend Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+                </li>
+            </ul>
+            <br>
+            <div class="tab-content p-b-3">
+                <div class="tab-pane active" id="profile">
+                    <div class="card" id="profilediv">
+                    	<div class="card-header">
+					    	 <h5>User Profile</h5>
+					  	</div>
+                    </div>
+                    <br>
+                    
+                    <div class="row">
+                    	<br>
+                        
+                        <div class="col-md-12">
+                            <h4 class="m-t-2"><span class="fa fa-clock-o ion-clock pull-xs-right"></span> Recent Visits</h4>
+                            <table  class="table table-hover table-striped">
+                            <thead>
+						  <tr>
+						     <th>Date</th>
+						     <th>Time</th>
+						     <th>Destination</th>
+						     <th>AvioCompany</th>
+						     <th>Details</th>
+						     <th>Grade</th>
+						  </tr>
+						 </thead>
+                                <tbody id="visits">                                    
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="tab-pane" id="avCompany">
+                    <h4 class="m-y-2">AvioCompanies</h4>
+                    <form>
+					  <div class="form-row">
+					    <div class="col">
+					      <input id="AVCName" type="text" class="form-control" placeholder="Enter name">
+					    </div>
+					    <div class="col">
+					      <input id="AVCAddress" type="text" class="form-control" placeholder="Enter departure">
+					    </div>
+					    <div class="col">
+					      <button id="searchAVC" type="button" class="btn btn-primary">Search</button>
+					    </div>
+					  </div>
+					</form>
+					<br>
+                   
+                    <table class="table table-hover table-striped">
+                    	<thead>
+						  <tr>
+						     <th>Name</th>
+						     <th>Departure</th>
+						     <th>Description</th> 
+						  </tr>
+						 </thead>
+                        <tbody class="AVCTable">                                    
+                           
+                        </tbody> 
+                    </table>
+                    <br>
+                    
+                    <!-- DESTINATIONS -->
+                    
+                    <h4 class="m-y-2">Destinations</h4>
+                    <form>
+					  <div class="form-row">
+					    <div class="col">
+					      <input id="DestinationName" type="text" class="form-control" placeholder=" Destination">
+					    </div>
+					    <!--  
+					    <div class="col">
+					      <select id="AVCAdrress"></select>
+					    </div>
+					    -->
+					    <div class="col">
+					        <input id="DepartureDate" type="text" class="form-control" placeholder=" Departure Date">
+					    </div>
+					    
+					     
+					    <div class="col">
+					      <button id="searchDestination" type="button" class="btn btn-primary">Search</button>
+					    </div>
+					  </div>
+					</form>
+					<br>
+                   
+                    <table class="table table-hover table-striped">
+                    	<thead>
+						  <tr>
+						     <th>AvioCompany</th>
+						     <!-- 
+						     <th>DepartureDate</th>
+						     <th>ArrivalDate</th>  
+						     <th>DepartureTime</th>
+						     <th>ArrivalTime</th>
+						     <th>TransferNo</th> 
+						     <th>FlightLength</th>
+						     <th>Price</th>
+						      -->
+						     
+						  </tr>
+						 </thead>
+                        <tbody class="DestinationTable">                                    
+                           
+                        </tbody> 
+                    </table>
+                    <br>
+                    
+                    
+                    
+                </div>
+                
+                
+                 <div class="tab-pane" id="reservations">
+                    <h4 class="m-y-2">Your Reservations</h4>
+                    <table class="table table-hover table-striped">
+                    	<thead>
+						  <tr>
+						     <th>Date</th>
+						     <th>Time</th>
+						     <th>Destination</th>
+						     <th>Details</th>
+						     <th>Cancel</th>
+						  </tr>
+						 </thead>
+                        <tbody class="reservationsTable">                                    
+                           
+                        </tbody> 
+                    </table>
+                    <br>
+                </div>
+                
+                
+                <div class="tab-pane" id="friends">
+                    <h4 class="m-y-2">Your Friends</h4>
+                    <table class="table table-hover table-striped">
+                        <tbody class="friendsTable">                                    
+                           
+                        </tbody> 
+                    </table>
+                    <br>
+                </div>
+                <div class="tab-pane" id="frequests">
+                    <h4 class="m-y-2">Pending requests </h4>
+                    <br>
+                    <table class="table table-hover table-striped">
+                        <tbody class="freqtable">                                    
+                            
+                        </tbody> 
+                    </table>
+                    
+                    <br>
+                    <h4 class="m-y-2">Send friend request: </h4>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+					  Search people
+					</button>
+					
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLabel">Search people</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        <div class="form-group">
+							  <label for="searchname">Name:</label>
+							  <input type="text" class="form-control" id="searchname">
+							</div>
+							<div class="form-group">
+							  <label for="searchsurname">Surname:</label>
+							  <input type="text" class="form-control" id="searchsurname">
+							</div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					        <button type="button" id="searchPeople" data-dismiss="modal" class="btn btn-primary">Search</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+                    <table class="table table-hover table-striped">
+                        <tbody class="searchedpeople">                                    
+                            
+                        </tbody> 
+                    </table>
+                   
+                </div>
+                
+                
+                <!-- Modal -->
+					<div class="modal fade" id="exampleModalR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabelR">Reservation</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body" id="modalbody">
+                              <div class = "form-group">
+                              	<label for="destinations">Destinations:</label>
+                              	<select id="destinations"></select>
+                              	<button type="button" class="btn btn-info btn-sm" id="genDestDates">Continue</button>
+                              </div>
+                              <div class="form-group" id="datesdiv">
+                              	
+                              </div>
+                              <div class="form-group" id="timesdiv">
+                              	
+                              </div>
+                              <div class="demo" id="seatsdiv">
+                              	
+                              </div>
+                              <div class="form-group" id="invitediv">
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                             
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                         <!-- Modal for reservations -->
+					<div class="modal fade" id="reservationsModal" tabindex="-1" role="dialog" aria-labelledby="reservationsModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="reservationsModalLabelR">Reservation details</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body" id="rmodalbody">
+                              
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                     </div>
+                
+                
+                
+                     
+                <div class="tab-pane" id="edit">
+                    <h4 class="m-y-2">Edit Profile</h4>
+                    <form role="form" class="editform">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">First name</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" id="name" value="Jane">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Last name</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" id="surname" value="Bishop">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">City</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" id="city" value="Novi Sad">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Phone</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" id="phone" value="1231231123">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Password</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="password" id="password" value="11111122333">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="password" id="password-confirm" value="11111122333">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-9">
+                                <input onClick="generateUserInfo()" type="button" class="btn btn-secondary" value="Reset">
+                                <input type="submit" class="btn btn-primary" value="Save Changes">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+</body>
+
+</html>

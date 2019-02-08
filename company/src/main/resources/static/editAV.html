@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/editAV.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+	<meta charset="ISO-8859-1">
+	<title>Edit Airline</title>
+	<!-- Bootstrap core CSS -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/editCinema.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/2-col-portfolio.css" rel="stylesheet">
+</head>
+<body onload="citaj()">
+	<h1>Edit Airline</h1>
+	<div class="venue">
+			<input type="text" placeholder="Name" name="name" id="name" required>
+			<input type="text" placeholder="Address" name="address" id="address" required>	
+			<input type="text" placeholder="Description" name="description" id="description" required>
+			<input type="submit" name="submit" onclick="promjeni()" id="submit">
+			<h3 style="color:black">Destinations<br></h3>
+   			<ul style="margin-left:5px;width:600px;text-align:left" id="spisakDestination" class="form-control list-unstyled"></ul>	
+			
+	</div>
+	<!-- 
+	<div class="container">
+		<div class="row m-y-2">
+			<div class="col-lg-8 push-lg-4">
+				<br>
+				<h4 class="m-y-2">Destinations</h4>
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody class="destinationsTable">
+
+					</tbody>
+				</table>
+				<br>
+			</div>
+		</div>
+	</div>
+	 -->
+	
+</body>
+</html>

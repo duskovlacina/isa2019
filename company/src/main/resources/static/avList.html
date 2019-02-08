@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/avList.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/toastr.min.js"></script>
+    
+
+    <title>List of airlines</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/toastr.css" rel="stylesheet">
+</head>
+
+<body onload="genNav(); getCompanies()">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">ISA project</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto navitems">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	<br><br><br><br><br>
+
+	<div class="container">
+		<div class="row m-y-2">
+			<div class="col-lg-8 push-lg-4">
+
+				<br>
+
+				<h4 class="m-y-2">Airlines</h4>
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Address</th>
+							<th>Description</th>
+							<th>Average Grade</th>
+							<th>Profile</th>
+						</tr>
+					</thead>
+					<tbody class="avTable">
+
+					</tbody>
+				</table>
+				<br>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+</body>
+</html>

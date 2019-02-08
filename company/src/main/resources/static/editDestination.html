@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/editEvent.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+	<meta charset="ISO-8859-1">
+	<title>Edit Cinema</title>
+	<!-- Bootstrap core CSS -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/editCinema.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/2-col-portfolio.css" rel="stylesheet">
+</head>
+<body onload="citaj()">
+	<h1>Edit Destination</h1>
+	<div class="venue">
+			<input type="text" placeholder="Name" name="name" id="name" required>
+			<input type="text" placeholder="Actors" name="actors" id="actors" required>	
+			<input type="text" placeholder="Genre" name="genre" id="genre" required>
+			<input type="text" placeholder="Director" name="director" id="director" required>
+			<input type="text" placeholder="Duration" name="duration" id="duration" required>
+			<input type="text" placeholder="Poster" name="poster" id="poster" required>
+			<input type="text" placeholder="AverageRating" name="averageRating" id="averageRating" required>
+			<input type="text" placeholder="Description" name="description" id="description" required>
+			<input type="submit" name="submit" onclick="promjeni()" id="submit">
+	</div>
+</body>
+</html>
